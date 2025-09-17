@@ -44,7 +44,6 @@ export const useFirestore = (collectionName) => {
       setError(err.message);
     }
   };
-
   const deleteData = async (id) => {
     try {
       await deleteDoc(doc(db, collectionName, id));
