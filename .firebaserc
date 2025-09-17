@@ -1,0 +1,9 @@
+{
+  "projects": {
+    "default": "",
+    "yes": "shopping-app-bfd0f",
+    "staging": "shopping-app-bfd0f"
+  },
+  "targets": {},
+  "etags": {}
+}

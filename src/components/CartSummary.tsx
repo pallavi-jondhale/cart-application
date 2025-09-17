@@ -1,6 +1,12 @@
 import React from 'react';
 
-const CartSummary = ({ subtotal, totalSavings, total }) => {
+interface CartSummaryProps {
+  subtotal: string;
+  totalSavings: string;
+  total: string;
+}
+
+const CartSummary: React.FC<CartSummaryProps> = ({ subtotal, totalSavings, total }) => {
   return (
     <div className="space-y-3 text-lg">
       <div className="flex justify-between">
@@ -24,3 +30,5 @@ const CartSummary = ({ subtotal, totalSavings, total }) => {
 };
 
 export default CartSummary;
+
+

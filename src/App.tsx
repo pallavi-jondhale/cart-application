@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ProductCard from './components/ProductCard';
 import CartItem from './components/CartItem';
 import CartSummary from './components/CartSummary';
 import { calculateSavings, calculateTotals } from './utils/calculations';
+import type { Product } from './types';
+import { useDispatch, useSelector } from 'react-redux';
+import type { RootState } from './store/store';
+import { addToCart, updateQuantity } from './store/cartSlice';
 
-const initialProducts = [
+const initialProducts: Product[] = [
   { id: 1, name: 'Bread', price: 1.10 },
   { id: 2, name: 'Milk', price: 0.50 },
   { id: 3, name: 'Cheese', price: 0.90 },
@@ -13,34 +17,16 @@ const initialProducts = [
 ];
 
 function App() {
-  const [products] = useState(initialProducts);
-  const [cart, setCart] = useState([]);
+  const dispatch = useDispatch();
+  const cart = useSelector((state: RootState) => state.cart.items);
+  const products = initialProducts;
 
-  const addToCart = (product) => {
-    setCart(prevCart => {
-      const existingItem = prevCart.find(item => item.id === product.id);
-      if (existingItem) {
-        return prevCart.map(item =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        );
-      }
-      return [...prevCart, { ...product, quantity: 1 }];
-    });
+  const handleAddToCart = (product: Product) => {
+    dispatch(addToCart(product));
   };
 
-  const updateQuantity = (id, newQuantity) => {
-    if (newQuantity <= 0) {
-      setCart(prevCart => prevCart.filter(item => item.id !== id));
-      return;
-    }
-    
-    setCart(prevCart =>
-      prevCart.map(item =>
-        item.id === id ? { ...item, quantity: newQuantity } : item
-      )
-    );
+  const handleUpdateQuantity = (id: number, newQuantity: number) => {
+    dispatch(updateQuantity({ id, quantity: newQuantity }));
   };
 
   const totals = calculateTotals(cart);
@@ -57,7 +43,7 @@ function App() {
                 <ProductCard
                   key={product.id}
                   product={product}
-                  onAddToCart={addToCart}
+                  onAddToCart={handleAddToCart}
                 />
               ))}
             </div>
@@ -75,8 +61,7 @@ function App() {
                     <CartItem
                       key={item.id}
                       item={item}
-                      cart={cart}
-                      onUpdateQuantity={updateQuantity}
+                      onUpdateQuantity={handleUpdateQuantity}
                       savings={calculateSavings(item, cart)}
                     />
                   ))}
@@ -97,3 +82,5 @@ function App() {
 }
 
 export default App;
+
+

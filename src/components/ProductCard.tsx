@@ -1,6 +1,12 @@
 import React from 'react';
+import type { Product } from '../types';
 
-const ProductCard = ({ product, onAddToCart }) => {
+interface ProductCardProps {
+  product: Product;
+  onAddToCart: (product: Product) => void;
+}
+
+const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
   return (
     <div className="flex items-center justify-between py-3 border-b border-gray-100 last:border-b-0">
       <div className="flex items-center space-x-4">
@@ -18,3 +24,5 @@ const ProductCard = ({ product, onAddToCart }) => {
 };
 
 export default ProductCard;
+
+

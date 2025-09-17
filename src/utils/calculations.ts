@@ -1,23 +1,25 @@
+import type { CartItem, Totals } from '../types';
+
 export const specialOffers = {
   2: { 
-    type: 'none'
+    type: 'none' as const
   },
   3: { 
-    type: 'buy_one_get_one_free',
+    type: 'buy_one_get_one_free' as const,
     description: 'When you buy a Cheese, you get a second Cheese free!'
   },
   4: { 
-    type: 'soup_enables_bread_discount',
+    type: 'soup_enables_bread_discount' as const,
     description: 'When you buy a Soup, you get a half price Bread!'
   },
   5: { 
-    type: 'third_off',
+    type: 'third_off' as const,
     discount: 0.333,
     description: 'Get a third off Butter!'
   }
 };
 
-export const calculateSavings = (item, cart) => {
+export const calculateSavings = (item: CartItem, cart: CartItem[]): number => {
   // Cheese: Buy one get one free
   if (item.id === 3) {
     const freeItems = Math.floor(item.quantity / 2);
@@ -46,18 +48,16 @@ export const calculateSavings = (item, cart) => {
   return 0;
 };
 
-export const calculateTotals = (cart) => {
+export const calculateTotals = (cart: CartItem[]): Totals => {
   let subtotal = 0;
   let totalSavings = 0;
 
   cart.forEach(item => {
-    const itemTotal = item.price * item.quantity;
-    subtotal += itemTotal;
+    subtotal += item.price * item.quantity;
   });
 
   cart.forEach(item => {
-    const itemSavings = calculateSavings(item, cart);
-    totalSavings += itemSavings;
+    totalSavings += calculateSavings(item, cart);
   });
 
   return {
@@ -66,3 +66,5 @@ export const calculateTotals = (cart) => {
     total: (subtotal - totalSavings).toFixed(2)
   };
 };
+
+

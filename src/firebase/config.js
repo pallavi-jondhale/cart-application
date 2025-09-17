@@ -2,12 +2,13 @@ import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: "your-api-key",
-  authDomain: "your-auth-domain",
-  projectId: "your-project-id",
-  storageBucket: "your-storage-bucket",
-  messagingSenderId: "your-messaging-sender-id",
-  appId: "your-app-id"
+  apiKey: "AIzaSyD4H4zAiOjN8Q6WRRpivMLGeA1IsL5s3Gg",
+  authDomain: "shopping-app-bfd0f.firebaseapp.com",
+  projectId: "shopping-app-bfd0f",
+  storageBucket: "shopping-app-bfd0f.firebasestorage.app",
+  messagingSenderId: "342816597979",
+  appId: "1:342816597979:web:86bcd61ef35455c3cd69fe",
+  measurementId: "G-RVVF1HMLJL"
 };
 
 const app = initializeApp(firebaseConfig);

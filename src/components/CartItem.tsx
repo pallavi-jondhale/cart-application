@@ -1,6 +1,13 @@
 import React from 'react';
+import type { CartItem as CartItemType } from '../types';
 
-const CartItem = ({ item, onUpdateQuantity, savings }) => {
+interface CartItemProps {
+  item: CartItemType;
+  onUpdateQuantity: (id: number, quantity: number) => void;
+  savings: number;
+}
+
+const CartItem: React.FC<CartItemProps> = ({ item, onUpdateQuantity, savings }) => {
   const itemTotal = (item.price * item.quantity).toFixed(2);
   const applySavingsToItem = item.id !== 4;
   const finalCost = applySavingsToItem
@@ -53,3 +60,5 @@ const CartItem = ({ item, onUpdateQuantity, savings }) => {
 };
 
 export default CartItem;
+
+
