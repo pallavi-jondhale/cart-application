@@ -20,13 +20,11 @@ export const specialOffers = {
 };
 
 export const calculateSavings = (item: CartItem, cart: CartItem[]): number => {
-  // Cheese: Buy one get one free
   if (item.id === 3) {
     const freeItems = Math.floor(item.quantity / 2);
     return freeItems * item.price;
   }
 
-  // Bread: Half-price per loaf, unlocked by soups in basket
   if (item.id === 1) {
     const soupInCart = cart.find(cartItem => cartItem.id === 4);
     if (!soupInCart) return 0;
@@ -34,12 +32,10 @@ export const calculateSavings = (item: CartItem, cart: CartItem[]): number => {
     return discountedBreads * (item.price / 2);
   }
 
-  // Soup: No direct savings (it unlocks bread discount)
   if (item.id === 4) {
     return 0;
   }
 
-  // Butter: One-third off each
   if (item.id === 5) {
     const butterOffer = specialOffers[5];
     return item.quantity * item.price * butterOffer.discount;
